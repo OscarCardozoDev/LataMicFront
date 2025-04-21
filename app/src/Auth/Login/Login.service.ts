@@ -1,15 +1,18 @@
-import { gql } from "@apollo/client";
+import { LoginForm, LoginResponse } from './Login.types';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION } from './Login.queries';
 
-export const GET_USER_BY_ID = gql`
-    query GetUserById($user_id: Int!) {
-        getUserById(user_id: $user_id) {
-            name
-            lastname
-            nickname
-            email
-            country {
-                name
-            }
-        }
-    }
-`;
+export const useLogin = () => {
+  const [loginMutation, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+
+  const sendForm = async (input: LoginForm): Promise<LoginResponse> => {
+    const response = await loginMutation({
+      variables: input,
+    });
+    return {
+      token: response.data.login.token,
+    };
+  };
+
+  return { sendForm, data, loading, error };
+};

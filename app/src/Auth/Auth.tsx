@@ -3,23 +3,26 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import { BlurView } from 'expo-blur';
 
-import { styles } from './Auth.styles';
+import { AuthStackParamList } from './Auth.types';
+import { useResponsiveStyles } from './Auth.styles';
 import { Login } from './Login/Login';
 import { Register } from './Register/Register';
 
 import background from '../../../assets/images/background.webp';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<AuthStackParamList>();
 
 const AuthNavigator = () => {
+  const styles = useResponsiveStyles();
+
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={background} // Reemplaza con tu imagen
+        source={background} 
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        {/* Parte izquierda vacía pero con imagen */}
+
         <View style={styles.leftSide} />
 
         <BlurView intensity={50} tint="dark" style={styles.rightSide}>
@@ -40,7 +43,6 @@ const AuthNavigator = () => {
               name="register" 
               component={Register} 
             />
-
 
           </Stack.Navigator>
         </BlurView>

@@ -6,6 +6,7 @@ import { ApolloProvider } from '@apollo/client';
 import { Loading } from './src/Loading/Loading';
 import AuthNavigator from './src/Auth/Auth';
 import client from './config/Apollo.client';
+import WelcomeNavigator from './src/Welcome/Welcome';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -14,7 +15,7 @@ export default function App() {
     await Font.loadAsync({
       'Introvert-Regular': require('../assets/fonts/IntrovertRegular.ttf'),
       'Raleway-Black': require('../assets/fonts/Raleway/Raleway-Black.ttf'),
-      'Raleway-Bold': require('../assets/fonts/Raleway/Raleway-Bold.ttf'),
+      'Raleway-Medium': require('../assets/fonts/Raleway/Raleway-Medium.ttf'),
     });
     setFontsLoaded(true);
   };
@@ -30,7 +31,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <AuthNavigator />
+        <WelcomeNavigator/>
       </NavigationContainer>
     </ApolloProvider>
   );

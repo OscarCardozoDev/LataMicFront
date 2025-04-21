@@ -11,34 +11,28 @@ export const webStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundImage: {
-    flex: 1,
-    flexDirection: "row",
+  header: {
+    flex: 0.2,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
-  leftSide: {
-    flex: 1, // 50%
-  },
-  rightSide: {
-    flex: 1, // 50%
-    justifyContent: "center",
-    padding: 24,
-  },
+  modulesContainer: {
+    flex: 0.8,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    padding: '8%',
+    paddingTop: '0%'
+  }
 });
 
 export const mobileStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundImage: {
+  header: {
+    flex: 0.2,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  },
+  modulesContainer: {
     flex: 1,
-    flexDirection: "column",
-  },
-  leftSide: {
-  },
-  rightSide: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-  },
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  }
 });
