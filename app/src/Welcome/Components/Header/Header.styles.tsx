@@ -23,6 +23,31 @@ export const webStyles = StyleSheet.create({
     width: 75,
     height: 75,
   },
+  btnContainer: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    gap: 20,
+  },
+  button: {
+    backgroundColor: '#FDD400',
+    borderColor: 'black',
+    width: 175,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    padding: 12,
+    margin: 10,
+  },
+  buttonText: {
+    color: 'black',
+    fontFamily: 'Raleway-Black',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  goLogin: {
+    fontFamily: 'Raleway-Black',
+    fontSize: 15,
+  }
 });
 
 export const mobileStyles = StyleSheet.create({
@@ -42,4 +67,29 @@ export const mobileStyles = StyleSheet.create({
     width: 30,
     height: 30,
   },
+  btnContainer: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    gap: 20,
+  },
+  button: {
+    backgroundColor: '#FDD400',
+    borderColor: 'black',
+    width: 175,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    padding: 12,
+    margin: 10,
+  },
+  buttonText: {
+    color: 'black',
+    fontFamily: 'Raleway-Black',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  goLogin: {
+    fontFamily: 'Raleway-Black',
+    fontSize: 15,
+  }
 });

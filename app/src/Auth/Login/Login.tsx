@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { LoginForm } from "./Login.types";
 import { useResponsiveStyles } from "./Login.styles";
-import { AuthStackParamList } from "../Auth.types";
+import { AuthStackParamList } from "../../Types/Auth.types";
 import { InputEmail, InputPassword } from "../../Components/inputs/Input";
 import { useLogin } from "./Login.service";
 

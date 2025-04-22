@@ -10,7 +10,7 @@ import type { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 
 import { useDeviceType } from "../../../hooks/useDeviceType";
-import { AuthStackParamList } from "../Auth.types";
+import { AuthStackParamList } from "../../Types/Auth.types";
 import {
   InputEmail,
   InputPassword,

@@ -1,3 +1,4 @@
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import * as Font from 'expo-font';
@@ -7,6 +8,8 @@ import { Loading } from './src/Loading/Loading';
 import AuthNavigator from './src/Auth/Auth';
 import client from './config/Apollo.client';
 import WelcomeNavigator from './src/Welcome/Welcome';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -31,7 +34,11 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <WelcomeNavigator/>
+        <Stack.Navigator id={undefined} initialRouteName="welcome" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="welcome" component={WelcomeNavigator} />
+
+          <Stack.Screen name="auth" component={AuthNavigator} />
+        </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>
   );

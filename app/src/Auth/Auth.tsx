@@ -3,7 +3,7 @@ import React from 'react';
 import { View, ImageBackground } from 'react-native';
 import { BlurView } from 'expo-blur';
 
-import { AuthStackParamList } from './Auth.types';
+import { AuthStackParamList } from '../Types/Auth.types';
 import { useResponsiveStyles } from './Auth.styles';
 import { Login } from './Login/Login';
 import { Register } from './Register/Register';
@@ -26,7 +26,7 @@ const AuthNavigator = () => {
         <View style={styles.leftSide} />
 
         <BlurView intensity={50} tint="dark" style={styles.rightSide}>
-          <Stack.Navigator id={undefined}  screenOptions={{ headerShown: false }}>
+          <Stack.Navigator id={undefined} screenOptions={{ headerShown: false }}>
 
             <Stack.Screen 
               options={{
