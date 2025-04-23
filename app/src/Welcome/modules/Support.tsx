@@ -1,14 +1,14 @@
-import { View, Text } from "react-native";
-import { useResponsiveStyles } from "./Modules.styles";
+import { View, Text } from 'react-native';
+import { useResponsiveStyles } from './Modules.styles';
 
 export const SupportModule = () => {
   const generalStyles = useResponsiveStyles();
 
   const whyList = [
-    "Mantener y mejorar la plataforma.",
-    "Apoyar directamente a los creadores.",
-    "Lanzar nuevas funciones y eventos para la comunidad.",
-    "Seguir construyendo un espacio seguro, libre y lleno de talento.",
+    'Mantener y mejorar la plataforma.',
+    'Apoyar directamente a los creadores.',
+    'Lanzar nuevas funciones y eventos para la comunidad.',
+    'Seguir construyendo un espacio seguro, libre y lleno de talento.',
   ];
 
   return (
@@ -18,8 +18,8 @@ export const SupportModule = () => {
         Si te gusta lo que hacemos y quieres ayudarnos a seguir creciendo,
         {'\n'}puedes apoyarnos a través de Patreon.
       </Text>
-      <Text>{"\n"}</Text>
-      <Text style={[generalStyles.paragraph, { fontFamily: "Raleway-Black" }]}>
+      <Text>{'\n'}</Text>
+      <Text style={[generalStyles.paragraph, { fontFamily: 'Raleway-Black' }]}>
         Con tu aporte podremos:
       </Text>
 
@@ -28,11 +28,10 @@ export const SupportModule = () => {
           • {item}
         </Text>
       ))}
-      <Text>{"\n"}</Text>
+      <Text>{'\n'}</Text>
       <Text style={generalStyles.paragraph}>
-        Cada aporte cuenta.{"\n"}Únete y sé parte de esta historia.
+        Cada aporte cuenta.{'\n'}Únete y sé parte de esta historia.
       </Text>
-
     </View>
   );
 };

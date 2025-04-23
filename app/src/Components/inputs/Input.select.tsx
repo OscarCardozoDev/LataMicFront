@@ -12,7 +12,7 @@ export const InputSelect = ({ label, selectedValue, onValueChange, options = [],
       onValueChange={onValueChange}
       {...props}
     >
-      {options.map((opt) => (
+      {options.map(opt => (
         <Picker.Item label={opt.label} value={opt.value} key={opt.value} />
       ))}
     </Picker>

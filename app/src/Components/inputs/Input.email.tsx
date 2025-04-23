@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { styles } from './Input.styles';
 
-export const InputEmail = ({ label, value, onChangeText, placeholder = 'Tu correo electrónico', ...props }) => {
+export const InputEmail = ({
+  label,
+  value,
+  onChangeText,
+  placeholder = 'Tu correo electrónico',
+  ...props
+}) => {
   const [error, setError] = useState('');
 
   const handleBlur = () => {

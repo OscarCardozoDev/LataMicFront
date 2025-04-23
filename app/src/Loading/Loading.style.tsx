@@ -7,11 +7,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-      backgroundColor: 'black',
-      color: 'white',
-      fontFamily: 'Introvert-Regular',
-      fontSize: 50,
-      fontWeight: 'bold',
-      marginBottom: 24,
+    backgroundColor: 'black',
+    color: 'white',
+    fontFamily: 'Introvert-Regular',
+    fontSize: 50,
+    fontWeight: 'bold',
+    marginBottom: 24,
   },
 });

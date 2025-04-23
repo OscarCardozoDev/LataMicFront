@@ -1,40 +1,35 @@
-import { useResponsiveStyles } from "./Register.styles";
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import type { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
+import { useResponsiveStyles } from './Register.styles';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import type { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
-import { useDeviceType } from "../../../hooks/useDeviceType";
-import { AuthStackParamList } from "../../Types/Auth.types";
+import { useDeviceType } from '../../../shared/useDeviceType';
+import { AuthStackParamList } from '../../Types/Auth.types';
 import {
   InputEmail,
   InputPassword,
   InputText,
   InputDate,
   InputSelect,
-} from "../../Components/inputs/Input";
-import { RegisterForm } from "./Register.types";
-import { useRegister } from "./Register.service";
+} from '../../Components/inputs/Input';
+import { RegisterForm } from './Register.types';
+import { useRegister } from './Register.service';
 
 export const Register = () => {
   const navigation = useNavigation<StackNavigationProp<AuthStackParamList>>();
   const styles = useResponsiveStyles();
-  const { isMobile } = useDeviceType(); 
+  const { isMobile } = useDeviceType();
   const { sendForm } = useRegister();
 
   const [showScrollBar, setShowScrollBar] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [form, setForm] = useState<RegisterForm>({
-    name: "",
-    lastname: "",
-    nickname: "",
-    email: "",
-    password: "",
+    name: '',
+    lastname: '',
+    nickname: '',
+    email: '',
+    password: '',
     country_id: 0,
     birthday: new Date(),
   });
@@ -46,16 +41,16 @@ export const Register = () => {
   // ---------------------- Send Form Logic ---------------------- //
 
   const handleChange = (field: keyof RegisterForm, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setForm(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async () => {
     try {
       const response = await sendForm(form);
-      console.log(response.token)
-      localStorage.setItem("token", response.token);
+      console.log(response.token);
+      localStorage.setItem('token', response.token);
     } catch (err) {
-      console.error("Error en login:", err);
+      console.error('Error en login:', err);
     }
   };
 
@@ -63,16 +58,13 @@ export const Register = () => {
     <View style={styles.container}>
       <Text style={styles.title}>LATAMIC</Text>
 
-      <ScrollView
-        style={[styles.scrollContainer]}
-        showsVerticalScrollIndicator={showScrollBar}
-      >
+      <ScrollView style={[styles.scrollContainer]} showsVerticalScrollIndicator={showScrollBar}>
         <View style={styles.inputContainer}>
           <InputText
             label="Nombres"
             placeholder="Tu nombre"
             value={form.name}
-            onChangeText={(value) => handleChange("name", value)}
+            onChangeText={value => handleChange('name', value)}
           />
         </View>
 
@@ -81,7 +73,7 @@ export const Register = () => {
             label="Apellidos"
             placeholder="Tus apellidos"
             value={form.lastname}
-            onChangeText={(value) => handleChange("lastname", value)}
+            onChangeText={value => handleChange('lastname', value)}
           />
         </View>
 
@@ -90,7 +82,7 @@ export const Register = () => {
             label="Nombre de usuario"
             placeholder="Tu nickname"
             value={form.nickname}
-            onChangeText={(value) => handleChange("nickname", value)}
+            onChangeText={value => handleChange('nickname', value)}
           />
         </View>
 
@@ -99,7 +91,7 @@ export const Register = () => {
             label="Correo Electrónico"
             placeholder="Tu correo electrónico"
             value={form.email}
-            onChangeText={(value) => handleChange("email", value)}
+            onChangeText={value => handleChange('email', value)}
           />
         </View>
 
@@ -108,7 +100,7 @@ export const Register = () => {
             label="Contraseña"
             placeholder="Tu contraseña"
             value={form.password}
-            onChangeText={(value) => handleChange("password", value)}
+            onChangeText={value => handleChange('password', value)}
           />
         </View>
 
@@ -126,12 +118,12 @@ export const Register = () => {
             label="País"
             selectedValue={form.country_id}
             options={[
-              { label: "Selecciona tu país", value: "0" },
-              { label: "Argentina", value: "1" },
-              { label: "México", value: "2" },
-              { label: "Colombia", value: "3" },
+              { label: 'Selecciona tu país', value: '0' },
+              { label: 'Argentina', value: '1' },
+              { label: 'México', value: '2' },
+              { label: 'Colombia', value: '3' },
             ]}
-            onValueChange={(value) => handleChange("country_id", value)}
+            onValueChange={value => handleChange('country_id', value)}
           />
         </View>
 
@@ -139,7 +131,7 @@ export const Register = () => {
           <InputDate
             label="Fecha de nacimiento"
             value={form.birthday}
-            onChangeDate={(value) => handleChange("birthday", value)}
+            onChangeDate={value => handleChange('birthday', value)}
           />
         </View>
       </ScrollView>
@@ -150,7 +142,7 @@ export const Register = () => {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("login");
+          navigation.navigate('login');
         }}
       >
         <Text style={styles.goLogin}>Ya tengo una cuenta</Text>

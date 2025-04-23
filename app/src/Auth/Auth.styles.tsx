@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { useDeviceType } from "../../hooks/useDeviceType";
+import { StyleSheet } from 'react-native';
+import { useDeviceType } from '../../shared/useDeviceType';
 
 export const useResponsiveStyles = () => {
   const { isMobile } = useDeviceType();
@@ -13,14 +13,14 @@ export const webStyles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   leftSide: {
     flex: 1, // 50%
   },
   rightSide: {
     flex: 1, // 50%
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 24,
   },
 });
@@ -31,14 +31,13 @@ export const mobileStyles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
   },
-  leftSide: {
-  },
+  leftSide: {},
   rightSide: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 24,
   },
 });

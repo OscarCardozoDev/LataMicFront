@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { useDeviceType } from "../../../../hooks/useDeviceType";
+import { StyleSheet } from 'react-native';
+import { useDeviceType } from '../../../../shared/useDeviceType';
 
 export const useResponsiveStyles = () => {
   const { isMobile } = useDeviceType();

@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { useDeviceType } from "../../../hooks/useDeviceType";
+import { StyleSheet } from 'react-native';
+import { useDeviceType } from '../../../shared/useDeviceType';
 
 export const useResponsiveStyles = () => {
   const { isMobile } = useDeviceType();
@@ -11,13 +11,13 @@ export const webStyles = StyleSheet.create({
   moduleContainer: {
     flex: 1,
     paddingBottom: 50,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   title: {
     color: 'white',
     fontFamily: 'Introvert-Regular',
     textShadowColor: 'rgba(0, 0, 0, 1)',
-    textShadowOffset: {width: 0, height: 5},
+    textShadowOffset: { width: 0, height: 5 },
     fontSize: 100,
     marginBottom: 24,
   },
@@ -33,7 +33,7 @@ export const webStyles = StyleSheet.create({
     fontFamily: 'Raleway-Medium',
     fontSize: 25,
     lineHeight: 40,
-  }
+  },
 });
 
 export const mobileStyles = StyleSheet.create({
@@ -44,7 +44,7 @@ export const mobileStyles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Introvert-Regular',
     textShadowColor: 'rgba(0, 0, 0, 1)',
-    textShadowOffset: {width: 0, height: 5},
+    textShadowOffset: { width: 0, height: 5 },
     fontSize: 75,
     marginBottom: 25,
   },
@@ -62,5 +62,5 @@ export const mobileStyles = StyleSheet.create({
     fontFamily: 'Raleway-Medium',
     fontSize: 25,
     lineHeight: 40,
-  }
+  },
 });

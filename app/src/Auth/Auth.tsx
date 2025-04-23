@@ -17,33 +17,26 @@ const AuthNavigator = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={background} 
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      >
-
+      <ImageBackground source={background} style={styles.backgroundImage} resizeMode="cover">
         <View style={styles.leftSide} />
 
         <BlurView intensity={50} tint="dark" style={styles.rightSide}>
           <Stack.Navigator id={undefined} screenOptions={{ headerShown: false }}>
-
-            <Stack.Screen 
+            <Stack.Screen
               options={{
-                cardStyle: { backgroundColor: 'transparent' }
-              }} 
-              name="login" 
-              component={Login} 
+                cardStyle: { backgroundColor: 'transparent' },
+              }}
+              name="login"
+              component={Login}
             />
 
-            <Stack.Screen 
+            <Stack.Screen
               options={{
-                cardStyle: { backgroundColor: 'transparent' }
-              }} 
-              name="register" 
-              component={Register} 
+                cardStyle: { backgroundColor: 'transparent' },
+              }}
+              name="register"
+              component={Register}
             />
-
           </Stack.Navigator>
         </BlurView>
       </ImageBackground>

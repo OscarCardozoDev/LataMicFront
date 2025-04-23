@@ -1,4 +1,4 @@
-import { Country } from "./Country.types";
+import { Country } from './Country.types';
 
 export interface User {
   name: string;
@@ -9,4 +9,3 @@ export interface User {
   country: Country;
   birthday: Date;
 }
-  

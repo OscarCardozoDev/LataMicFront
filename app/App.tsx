@@ -34,7 +34,11 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <Stack.Navigator id={undefined} initialRouteName="welcome" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator
+          id={undefined}
+          initialRouteName="welcome"
+          screenOptions={{ headerShown: false }}
+        >
           <Stack.Screen name="welcome" component={WelcomeNavigator} />
 
           <Stack.Screen name="auth" component={AuthNavigator} />
@@ -43,4 +47,3 @@ export default function App() {
     </ApolloProvider>
   );
 }
-
