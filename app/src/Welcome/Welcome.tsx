@@ -22,6 +22,7 @@ const WelcomeNavigator = () => {
     progress: ProgressModule,
     support: SupportModule,
   };
+  
   const stepModules = ['about', 'comunity', 'progress', 'support'];
   const defaultColors = [first, second, thirth, fourth];
   const [step, setStep] = useState(0);
@@ -60,7 +61,7 @@ const WelcomeNavigator = () => {
 
   return (
     <View style={styles.container}>
-      <BackgroundWelcome>
+      <BackgroundWelcome backgroundColor={defaultColors[step]}>
         <View style={styles.header}>
           <Header color={defaultColors[step]} showLogo={step !== 0} />
         </View>

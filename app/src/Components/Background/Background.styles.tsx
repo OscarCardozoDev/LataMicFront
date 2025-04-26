@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { useDeviceType } from '../../../../shared/useDeviceType';
+import { useDeviceType } from '../../../shared/useDeviceType';
 
 export const useResponsiveStyles = () => {
   const { isMobile } = useDeviceType();
@@ -11,36 +11,30 @@ export const webStyles = StyleSheet.create({
   container: {
     height: '100%',
     width: '100%',
-    zIndex: -1,
-  },
-  imgContainer: {
     flexDirection: 'row',
-    gap: 50,
     transform: [
       { rotate: '45deg' }, 
       { translateX: "-50%" },
       { translateY: "-50%" },
     ],
+    gap: 50,
+    zIndex: -1,
   },
   column: {
     flexDirection: 'column',
     gap: 50,
   },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  }
 });
 
 export const mobileStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  imgContainer: {
-    flexDirection: 'row',
-    gap: 50,
-    transform: [
-      { rotate: '45deg' }, 
-      { translateX: "-50%" },
-      { translateY: "-50%" },
-    ],
   },
   column: {
     flexDirection: 'column',
@@ -49,4 +43,9 @@ export const mobileStyles = StyleSheet.create({
   image: {
     resizeMode: 'cover',
   },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  }
 });
