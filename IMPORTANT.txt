@@ -1,3 +1,7 @@
 Se debe comprar la licencia para la fuente:
 
     - IntroverRegular
+
+Paleta de colores:
+
+    - https://www.figma.com/color-palette-generator/?colors=FAF7F3-FFF2EB-FFE6E6-E69DB8-FF7E9D-B9375D
