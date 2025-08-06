@@ -168,7 +168,6 @@ export const MangaProfileView: React.FC<MangaProfileViewProps> = ({
       
       <ChapterCard
         chapters={manga.chapters}
-        variant="rows"
         selectedChapter={selectedChapter}
         onChapterSelect={handleChapterSelect}
         onChapterLongPress={handleChapterLongPress}
