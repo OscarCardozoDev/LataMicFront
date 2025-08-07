@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import Colors from '../../constants/Colors';
 import { Typography } from '../../constants/Fonts';
-import { SPACING, BORDER_RADIUS, SHADOWS, TITLE_LOGO } from '../../constants/Dimensions';
+import { SPACING, BORDER_RADIUS, SHADOWS, getPagePadding, TITLE_LOGO } from '../../constants/Dimensions';
 
 export const styles = StyleSheet.create({
   // Actualiza estos estilos en tu styles.ts
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   // Container principal - sin cambios
   container: {
     backgroundColor: Colors.thirth,
-    paddingHorizontal: SPACING.lg,
+    paddingHorizontal: getPagePadding(),
     paddingVertical: SPACING.md,
     borderBottomWidth: 1,
     borderBottomColor: Colors.gray200,

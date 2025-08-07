@@ -28,6 +28,52 @@ export const SPACING = {
   xxxxxl: 48,
 } as const;
 
+// Padding horizontal responsivo para páginas
+export const PAGE_PADDING = {
+  // Valores fijos para mobile
+  mobile: 20, // 20px en móviles (más cómodo que 25px)
+  
+  // Porcentajes para tablet y desktop
+  tablet: 0.08, // 8% en tablets (un poco menos agresivo que 10%)
+  desktop: 0.15, // 15% en desktop (menos que 25% para mejor uso del espacio)
+  
+  // Valores mínimos y máximos
+  min: 16, // Mínimo padding
+  max: 175, // Máximo padding para pantallas muy grandes
+} as const;
+
+// Función para obtener el padding horizontal responsivo
+export const getPagePadding = (screenWidth?: number): number => {
+  
+  if (SCREEN_WIDTH < BREAKPOINTS.tablet) {
+    // Mobile: padding fijo
+    return PAGE_PADDING.mobile;
+  } else if (SCREEN_WIDTH < BREAKPOINTS.desktop) {
+    // Tablet: porcentaje con límites
+    const calculatedPadding = SCREEN_WIDTH * PAGE_PADDING.tablet;
+    return Math.max(PAGE_PADDING.min, Math.min(calculatedPadding, PAGE_PADDING.max));
+  } else {
+    // Desktop: porcentaje con límites
+    const calculatedPadding = SCREEN_WIDTH * PAGE_PADDING.desktop;
+    return Math.max(PAGE_PADDING.min, Math.min(calculatedPadding, PAGE_PADDING.max));
+  }
+};
+
+// Padding específico por tipo de página
+export const PAGE_PADDING_VARIANTS = {
+  // Padding estándar para la mayoría de páginas
+  standard: getPagePadding(),
+  
+  // Padding reducido para páginas con mucho contenido
+  compact: getPagePadding() * 0.75,
+  
+  // Padding expandido para páginas con poco contenido
+  relaxed: getPagePadding() * 1.25,
+  
+  // Sin padding para páginas fullscreen
+  none: 0,
+} as const;
+
 // Radios de bordes
 export const BORDER_RADIUS = {
   none: 0,

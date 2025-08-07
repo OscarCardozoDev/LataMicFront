@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   View,
+  ScrollView,
   Text,
   TouchableOpacity,
   Image,
@@ -202,7 +203,7 @@ export const ChapterRowsView: React.FC<ChapterRowsViewProps> = ({
       style={[sharedStyles.container, animations.containerStyle]} 
       testID={testID}
     >
-      <View style={rowsStyles.list}>
+      <ScrollView>
         {sortedChapters.map((chapter) => (
           <ChapterRow
             key={chapter.id}
@@ -216,7 +217,7 @@ export const ChapterRowsView: React.FC<ChapterRowsViewProps> = ({
             onPressOut={onChapterPressOut}
           />
         ))}
-      </View>
+      </ScrollView>
     </Animated.View>
   );
 };

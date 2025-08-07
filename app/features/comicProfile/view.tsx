@@ -166,19 +166,20 @@ export const MangaProfileView: React.FC<MangaProfileViewProps> = ({
         </View>
       </View>
       
-      <ChapterCard
-        chapters={manga.chapters}
-        selectedChapter={selectedChapter}
-        onChapterSelect={handleChapterSelect}
-        onChapterLongPress={handleChapterLongPress}
-        columnsCount={isTablet ? 12 : 8}
-        itemHeight={40}
-        gap={4}
-        showTitles={false}
-        sortBy="number"
-        sortOrder="asc"
-        testID="manga-chapters"
-      />
+      <View style={styles.chaptersList}>
+        <ChapterCard
+          chapters={manga.chapters}
+          variant='rows'
+          selectedChapter={selectedChapter}
+          onChapterSelect={handleChapterSelect}
+          onChapterLongPress={handleChapterLongPress}
+          itemHeight={40}
+          showTitles={false}
+          sortBy="number"
+          sortOrder="asc"
+          testID="manga-chapters"
+        />        
+      </View>
     </Animated.View>
   );
 
@@ -195,9 +196,6 @@ export const MangaProfileView: React.FC<MangaProfileViewProps> = ({
         <Animated.View style={[styles.heroContent, animations.slideUpStyle]}>
           <Text style={styles.heroTitle}>
             {manga.title}
-          </Text>
-          <Text style={styles.heroSubtitle}>
-            {t('manga.description', 'Descripción')}
           </Text>
         </Animated.View>
       </Animated.View>

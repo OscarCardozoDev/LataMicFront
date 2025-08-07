@@ -2,17 +2,14 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import Colors from '@/shared/constants/Colors';
 import { Typography } from '@/shared/constants/Fonts';
-import { SPACING, BORDER_RADIUS, SHADOWS } from '@/shared/constants/Dimensions';
+import { 
+  SPACING, 
+  BORDER_RADIUS, 
+  SHADOWS, 
+  getPagePadding, 
+} from '@/shared/constants/Dimensions';
 
 const { width } = Dimensions.get('window');
-
-// Función para calcular el padding lateral responsive
-const getResponsivePadding = () => {
-  if (width < 480) return SPACING.md; // Mobile pequeño
-  if (width < 768) return width * 0.05; // Mobile grande - 5%
-  if (width < 1024) return width * 0.1; // Tablet - 10%
-  return width * 0.2; // Desktop - 20%
-};
 
 // Función para calcular el ancho del grid basado en el número de columnas
 const calculateGridWidth = (columns: number) => {
@@ -27,9 +24,9 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.thirth,
   },
 
-  // Header simplificado
+  // Header simplificado usando la nueva constante
   header: {
-    paddingHorizontal: getResponsivePadding(),
+    paddingHorizontal: getPagePadding(),
     paddingVertical: SPACING.lg,
     backgroundColor: Colors.thirth,
     borderBottomWidth: 1,
@@ -81,7 +78,15 @@ export const styles = StyleSheet.create({
   // Contenedor principal
   contentContainer: {
     flex: 1,
-    // Remover alignItems de aquí ya que va en contentContainerStyle
+  },
+
+  // ScrollView containers
+  scrollContainer: {
+    flex: 1,
+  },
+
+  scrollContent: {
+    paddingBottom: SPACING.xxxl,
   },
 
   // Comics grid actualizado con CSS Grid approach
@@ -98,7 +103,6 @@ export const styles = StyleSheet.create({
   // Grids específicos por número de columnas
   grid2Columns: {
     width: calculateGridWidth(2),
-    // Simular grid con flexbox
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
@@ -138,6 +142,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: SPACING.xxxl,
+    paddingHorizontal: getPagePadding(),
   },
 
   loadingText: {
@@ -151,7 +156,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: SPACING.xl,
+    paddingHorizontal: getPagePadding(),
     paddingVertical: SPACING.xxxl,
   },
 
@@ -174,7 +179,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: SPACING.xl,
+    paddingHorizontal: getPagePadding(),
     paddingVertical: SPACING.xxxl,
   },
 
@@ -193,7 +198,7 @@ export const styles = StyleSheet.create({
   },
 
   retryButton: {
-    backgroundColor: Colors.first,
+    backgroundColor: Colors.fourth,
     paddingHorizontal: SPACING.xl,
     paddingVertical: SPACING.md,
     borderRadius: BORDER_RADIUS.lg,
@@ -215,8 +220,8 @@ export const styles = StyleSheet.create({
 });
 
 // Función helper para obtener el estilo del grid apropiado
-export const getGridStyle = () => {
-  const columns = getColumnCount();
+export const getGridStyle = (screenWidth?: number) => {
+  const columns = getColumnCount(screenWidth);
   const baseStyle = [styles.comicsGrid];
   
   switch (columns) {
@@ -234,14 +239,15 @@ export const getGridStyle = () => {
 };
 
 // Función helper para obtener el ancho del grid (para paginación)
-export const getGridWidth = (columns?: number) => {
-  const cols = columns || getColumnCount();
+export const getGridWidth = (columns?: number, screenWidth?: number) => {
+  const cols = columns || getColumnCount(screenWidth);
   return calculateGridWidth(cols);
 };
 
 // Función helper para obtener el número de columnas
-export const getColumnCount = () => {
-  const availableWidth = width - (getResponsivePadding() * 2);
+export const getColumnCount = (screenWidth?: number) => {
+  const width = screenWidth || Dimensions.get('window').width;
+  const availableWidth = width - (getPagePadding(width) * 2);
   const cardWidth = 180;
   const gap = 15;
   const maxColumns = Math.floor((availableWidth + gap) / (cardWidth + gap));

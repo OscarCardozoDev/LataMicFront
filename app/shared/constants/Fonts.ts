@@ -102,19 +102,19 @@ export const FontFamily = {
     
     // Texto de cuerpo
     body: {
-      fontFamily: FontFamily.introvert,
+      fontFamily: FontFamily.ralewayMedium,
       fontSize: FontSize.md,
       lineHeight: LineHeight.normal,
       fontWeight: FontWeight.regular,
     },
     bodyLarge: {
-      fontFamily: FontFamily.introvert,
+      fontFamily: FontFamily.ralewayMedium,
       fontSize: FontSize.lg,
       lineHeight: LineHeight.relaxed,
       fontWeight: FontWeight.regular,
     },
     bodySmall: {
-      fontFamily: FontFamily.introvert,
+      fontFamily: FontFamily.ralewayMedium,
       fontSize: FontSize.sm,
       lineHeight: LineHeight.normal,
       fontWeight: FontWeight.regular,

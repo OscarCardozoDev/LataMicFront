@@ -5,27 +5,23 @@ import { Typography } from '@/shared/constants/Fonts';
 import { SPACING, BORDER_RADIUS, SHADOWS } from '@/shared/constants/Dimensions';
 
 export const rowsStyles = StyleSheet.create({
-  list: {
-    gap: SPACING.sm,
-  },
 
-  // Chapter row item
+  // Chapter row item - Ajustado para fondo oscuro
   chapterRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.white,
-    borderRadius: BORDER_RADIUS.md,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Fondo translúcido para tema oscuro
+    borderRadius: BORDER_RADIUS.lg,
     padding: SPACING.md,
-    marginBottom: SPACING.sm,
-    ...SHADOWS.sm,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
 
   // Estados del capítulo row
   chapterRowSelected: {
-    backgroundColor: Colors.ui.surface,
-    borderWidth: 2,
+    backgroundColor: 'rgba(255, 126, 157, 0.2)', // Rosa translúcido para seleccionado
     borderColor: Colors.titlePink,
-    ...SHADOWS.md,
+    borderWidth: 2,
   },
 
   chapterRowPressed: {
@@ -34,17 +30,16 @@ export const rowsStyles = StyleSheet.create({
   },
 
   chapterRowRead: {
-    opacity: 0.7,
+    opacity: 0.6,
   },
 
-  // Imagen del capítulo (lado izquierdo)
+  // Imagen del capítulo (lado izquierdo) - Más grande
   chapterImageContainer: {
-    width: 60,
-    height: 60,
+    width: 50, // Más pequeño para coincidir con la imagen
+    height: 50,
     borderRadius: BORDER_RADIUS.md,
     overflow: 'hidden',
-    marginRight: SPACING.md,
-    backgroundColor: Colors.gray200,
+    marginRight: SPACING.lg,
     position: 'relative',
   },
 
@@ -72,9 +67,9 @@ export const rowsStyles = StyleSheet.create({
   chapterImageFallbackText: {
     ...Typography.h4,
     color: Colors.white,
-    fontSize: 18,
+    fontSize: 16, // Ajustado para el tamaño más pequeño
     fontWeight: 'bold',
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
   },
@@ -87,16 +82,18 @@ export const rowsStyles = StyleSheet.create({
 
   chapterMainText: {
     ...Typography.h4,
-    color: Colors.gray800,
+    color: Colors.white, // Texto blanco para fondo oscuro
     fontSize: 16,
+    lineHeight: 20,
     fontWeight: 'bold',
     marginBottom: SPACING.xs / 2,
   },
 
   chapterSecondaryText: {
     ...Typography.bodySmall,
-    color: Colors.gray600,
-    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.7)', // Blanco translúcido para texto secundario
+    lineHeight: 18,
+    fontSize: 13,
     fontWeight: '400',
   },
 
@@ -115,18 +112,18 @@ export const rowsStyles = StyleSheet.create({
   chapterRowPlaceholder: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.gray100,
-    borderRadius: BORDER_RADIUS.md,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: BORDER_RADIUS.lg,
     padding: SPACING.md,
     marginBottom: SPACING.sm,
   },
 
   chapterImagePlaceholderLoading: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: BORDER_RADIUS.md,
     backgroundColor: Colors.gray200,
-    marginRight: SPACING.md,
+    marginRight: SPACING.lg,
   },
 
   chapterContentPlaceholder: {
@@ -135,7 +132,7 @@ export const rowsStyles = StyleSheet.create({
 
   chapterTextPlaceholder: {
     height: 16,
-    backgroundColor: Colors.gray200,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: BORDER_RADIUS.sm,
     marginBottom: SPACING.xs,
   },
@@ -143,7 +140,7 @@ export const rowsStyles = StyleSheet.create({
   chapterTextPlaceholderShort: {
     height: 14,
     width: '60%',
-    backgroundColor: Colors.gray200,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: BORDER_RADIUS.sm,
   },
 });

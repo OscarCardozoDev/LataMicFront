@@ -2,7 +2,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import Colors from '@/shared/constants/Colors';
 import { Typography } from '@/shared/constants/Fonts';
-import { SPACING, BORDER_RADIUS, SHADOWS } from '@/shared/constants/Dimensions';
+import { SPACING, BORDER_RADIUS, getPagePadding, SHADOWS } from '@/shared/constants/Dimensions';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -12,9 +12,18 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.thirth,
   },
 
+  // ScrollView principal
+  mainScrollView: {
+    flex: 1,
+  },
+
+  mainScrollContent: {
+    flexGrow: 1,
+  },
+
   // Hero Section
   heroSection: {
-    height: screenHeight * 0.35, // 35% de la pantalla
+    height: screenHeight * 0.3, // Reducido para dar más espacio al contenido
     position: 'relative',
     overflow: 'hidden',
   },
@@ -31,20 +40,19 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 
   heroContent: {
     position: 'absolute',
     bottom: SPACING.xl,
-    left: SPACING.lg,
-    right: SPACING.lg,
+    paddingHorizontal: getPagePadding() * 2,
   },
 
   heroTitle: {
     ...Typography.h1,
     color: Colors.white,
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'black',
     textShadowColor: 'rgba(0, 0, 0, 0.8)',
     textShadowOffset: { width: 0, height: 2 },
@@ -55,7 +63,7 @@ export const styles = StyleSheet.create({
   heroSubtitle: {
     ...Typography.body,
     color: Colors.white,
-    fontSize: 16,
+    fontSize: 14,
     opacity: 0.9,
     textShadowColor: 'rgba(0, 0, 0, 0.8)',
     textShadowOffset: { width: 0, height: 1 },
@@ -65,8 +73,9 @@ export const styles = StyleSheet.create({
   // Content Section
   contentSection: {
     flex: 1,
-    paddingHorizontal: SPACING.lg,
+    paddingHorizontal: getPagePadding(),
     paddingTop: SPACING.xl,
+    paddingBottom: SPACING.xl,
   },
 
   // Layout responsive
@@ -84,7 +93,8 @@ export const styles = StyleSheet.create({
   // Left column (author info)
   leftColumn: {
     width: screenWidth < 768 ? '100%' : '30%',
-    minWidth: screenWidth < 768 ? 'auto' : 280,
+    minWidth: screenWidth < 768 ? 'auto' : 250,
+    maxWidth: screenWidth < 768 ? 'auto' : 300,
   },
 
   // Right column (manga info + chapters)
@@ -106,8 +116,8 @@ export const styles = StyleSheet.create({
 
   authorName: {
     ...Typography.h3,
-    color: Colors.fourth,
-    fontSize: 20,
+    color: Colors.white, // Texto blanco para tema oscuro
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: SPACING.sm,
@@ -115,7 +125,7 @@ export const styles = StyleSheet.create({
 
   authorDescription: {
     ...Typography.body,
-    color: Colors.gray600,
+    color: 'rgba(255, 255, 255, 0.8)', // Blanco translúcido
     fontSize: 14,
     textAlign: 'center',
     lineHeight: 20,
@@ -123,9 +133,9 @@ export const styles = StyleSheet.create({
   },
 
   contactButton: {
-    backgroundColor: Colors.fourth,
-    paddingHorizontal: SPACING.xl,
-    paddingVertical: SPACING.md,
+    backgroundColor: Colors.titlePink,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.sm,
     borderRadius: BORDER_RADIUS.full,
     ...SHADOWS.sm,
   },
@@ -133,7 +143,7 @@ export const styles = StyleSheet.create({
   contactButtonText: {
     ...Typography.button,
     color: Colors.white,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
   },
 
@@ -144,17 +154,17 @@ export const styles = StyleSheet.create({
 
   mangaTitle: {
     ...Typography.h2,
-    color: Colors.fourth,
-    fontSize: 28,
+    color: Colors.titlePink, // Rosa para el título
+    fontSize: 24,
     fontWeight: 'black',
     marginBottom: SPACING.md,
   },
 
   mangaDescription: {
     ...Typography.body,
-    color: Colors.gray700,
-    fontSize: 16,
-    lineHeight: 24,
+    color: 'rgba(255, 255, 255, 0.9)', // Blanco para descripción
+    fontSize: 15,
+    lineHeight: 22,
     marginBottom: SPACING.lg,
   },
 
@@ -169,22 +179,26 @@ export const styles = StyleSheet.create({
     gap: SPACING.sm,
   },
 
-  // Chapters Section
+  // Chapters Section - Optimizada
   chaptersSection: {
     flex: 1,
+    minHeight: 300, // Altura mínima para el ScrollView
   },
 
   chaptersHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.md,
+    paddingBottom: SPACING.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
   },
 
   chaptersTitle: {
     ...Typography.h3,
-    color: Colors.fourth,
-    fontSize: 20,
+    color: Colors.titlePink,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 
@@ -195,9 +209,19 @@ export const styles = StyleSheet.create({
 
   chaptersSortText: {
     ...Typography.bodySmall,
-    color: Colors.gray600,
-    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontSize: 11,
     marginRight: SPACING.xs,
+  },
+
+  // Container específico para el ScrollView de capítulos
+  chaptersList: {
+    flex: 1,
+    maxHeight: 400,
+  },
+
+  chaptersListContent: {
+    paddingBottom: SPACING.lg,
   },
 
   // Loading states
@@ -205,11 +229,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#2C2C2C',
   },
 
   loadingText: {
     ...Typography.body,
-    color: Colors.gray600,
+    color: Colors.white,
     marginTop: SPACING.md,
   },
 
@@ -219,6 +244,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: SPACING.xl,
+    backgroundColor: '#2C2C2C',
   },
 
   errorText: {
@@ -229,7 +255,7 @@ export const styles = StyleSheet.create({
   },
 
   retryButton: {
-    backgroundColor: Colors.fourth,
+    backgroundColor: Colors.titlePink,
     paddingHorizontal: SPACING.xl,
     paddingVertical: SPACING.md,
     borderRadius: BORDER_RADIUS.lg,
@@ -243,11 +269,11 @@ export const styles = StyleSheet.create({
   // Responsive adjustments
   '@media (max-width: 768px)': {
     heroSection: {
-      height: screenHeight * 0.25, // Menos altura en móvil
+      height: screenHeight * 0.25,
     },
     
     heroTitle: {
-      fontSize: 24,
+      fontSize: 22,
     },
     
     leftColumn: {
@@ -256,6 +282,10 @@ export const styles = StyleSheet.create({
     
     authorSection: {
       paddingVertical: SPACING.md,
+    },
+
+    chaptersScrollContainer: {
+      maxHeight: 300, // Menos altura en móvil
     },
   },
 });
