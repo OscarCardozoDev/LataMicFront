@@ -122,11 +122,7 @@ export const MangaProfileView: React.FC<MangaProfileViewProps> = ({
 
   // Renderizar información del manga
   const renderMangaInfo = () => (
-    <Animated.View style={[styles.mangaInfoSection, animations.slideUpStyle]}>
-      <Text style={styles.mangaTitle}>
-        {manga.title}
-      </Text>
-      
+    <Animated.View style={[styles.mangaInfoSection, animations.slideUpStyle]}>      
       <Text style={styles.mangaDescription}>
         {manga.description}
       </Text>

@@ -123,6 +123,19 @@ const Colors = {
     warm: 'linear-gradient(135deg, #FAF7F3, #FFE6E6)',
     accent: 'linear-gradient(135deg, #E69DB8, #FF7E9D)',
   },
+
+  selectionBar: {
+    // Colores para SelectionBar
+    default: '#251D1D',    // Color cuando no está seleccionado
+    selected: '#3A2D2D',   // Color cuando está seleccionado
+    
+    // Variaciones adicionales para mejor UX
+    hover: '#2F2424',      // Color hover (intermedio)
+    text: '#FFFFFF',       // Color del texto
+    border: '#E5E5E5',     // Color del borde del contenedor
+    
+    // ... resto de colores existentes ...
+  },
   
   // Transparencias
   transparent: 'transparent',

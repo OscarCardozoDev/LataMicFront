@@ -104,7 +104,7 @@ export const FontFamily = {
     body: {
       fontFamily: FontFamily.ralewayMedium,
       fontSize: FontSize.md,
-      lineHeight: LineHeight.normal,
+      lineHeight: LineHeight.xs,
       fontWeight: FontWeight.regular,
     },
     bodyLarge: {
@@ -116,7 +116,7 @@ export const FontFamily = {
     bodySmall: {
       fontFamily: FontFamily.ralewayMedium,
       fontSize: FontSize.sm,
-      lineHeight: LineHeight.normal,
+      lineHeight: LineHeight.xs,
       fontWeight: FontWeight.regular,
     },
     
@@ -124,7 +124,7 @@ export const FontFamily = {
     caption: {
       fontFamily: FontFamily.introvert,
       fontSize: FontSize.xs,
-      lineHeight: LineHeight.normal,
+      lineHeight: LineHeight.xs,
       fontWeight: FontWeight.regular,
     },
     overline: {

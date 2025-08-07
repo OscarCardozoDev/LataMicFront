@@ -11,6 +11,7 @@ import './i18n/index';
 import { Loading } from './shared/components/Loading/Loading';
 import Header from './shared/components/Header';
 import Library from './features/library/index';
+import Profile from './features/profile/index';
 import ComicProfile from './features/comicProfile/index';
 import client from './config/Apollo.client';
 
@@ -62,7 +63,7 @@ export default function App() {
             onMenuItemPress={item => console.log('📱 Menú:', item)}
             onLogoPress={() => console.log('🏠 Logo presionado')}
           />
-          <ComicProfile />
+          <Profile />
         </View>
       </NavigationContainer>
     </ApolloProvider>
