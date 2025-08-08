@@ -6,6 +6,13 @@ export interface ProfileScreenProps {
   navigation?: NavigationProp<any>;
 }
 
+export interface Artist {
+  id: string;
+  name: string;
+  avatar: string;
+  isFollowing: boolean;
+}
+
 export interface User {
   id: string;
   name: string;
@@ -13,6 +20,9 @@ export interface User {
   description?: string;
   coins: number;
   isPremium?: boolean;
+  followersCount: number;
+  followingCount: number;
+  followedArtists: Artist[];
 }
 
 export interface MicCustomization {
@@ -65,6 +75,8 @@ export type ProfileTab = 'muro' | 'mangas' | 'tuMic';
 
 export type MangaFilter = 'reading' | 'favorites' | 'completed';
 
+export type PostType = 'publicaciones' | 'compartidas';
+
 export interface ProfileState {
   user: User;
   mangaLists: MangaList;
@@ -73,6 +85,7 @@ export interface ProfileState {
   currentTab: ProfileTab;
   selectedMicCategory: MicCategory;
   selectedMangaFilter: MangaFilter;
+  selectedPostType: PostType;
   isLoading: boolean;
   error: string | null;
 }
@@ -81,10 +94,13 @@ export interface ProfileActions {
   setCurrentTab: (tab: ProfileTab) => void;
   setSelectedMicCategory: (category: MicCategory) => void;
   setSelectedMangaFilter: (filter: MangaFilter) => void;
+  setSelectedPostType: (type: PostType) => void;
   updateUserDescription: (description: string) => void;
   purchaseMicItem: (item: MicCustomization) => void;
   applyMicCustomization: (category: MicCategory, itemId: string) => void;
   removeMangaFromList: (comicId: string, listType: MangaFilter) => void;
+  followArtist: (artistId: string) => void;
+  unfollowArtist: (artistId: string) => void;
   loadUserData: () => Promise<void>;
   loadMicCustomizations: () => Promise<void>;
 }

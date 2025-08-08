@@ -4,13 +4,12 @@ import {
   View,
   Text,
   SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
   ActivityIndicator,
-  Image,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SelectionBar } from '@/shared/components/SelectionBar';
+import { ComicModule } from './components/ComicsList';
+import { WallModule } from './components/Wall';
 import { styles } from './styles';
 import { UseProfileReturn, ProfileTab, MangaFilter } from './types';
 import Colors from '@/shared/constants/Colors';
@@ -27,24 +26,21 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
     mangaLists,
     currentTab,
     selectedMangaFilter,
+    selectedPostType,
     isLoading,
     error,
     setCurrentTab,
     setSelectedMangaFilter,
+    setSelectedPostType,
+    followArtist,
+    unfollowArtist,
   } = profileData;
 
-  // Opciones para el SelectionBar
+  // Opciones para el SelectionBar principal
   const tabOptions = [
     { id: 'muro', label: 'Muro' },
     { id: 'mangas', label: 'Mangas' },
     { id: 'tuMic', label: 'Tu Mic' },
-  ];
-
-  // Opciones para filtros de manga
-  const mangaFilterOptions = [
-    { id: 'reading', label: 'Leyendo' },
-    { id: 'favorites', label: 'Favoritos' },
-    { id: 'completed', label: 'Terminado' },
   ];
 
   // Renderizar contenido del tab actual
@@ -69,16 +65,38 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
     switch (currentTab) {
       case 'muro':
         return (
-          <View style={styles.tabContent}>
-            <Text style={styles.placeholderText}>Tu Muro</Text>
-            <Text style={styles.placeholderSubtext}>
-              Aquí aparecerán tus publicaciones y actividades
-            </Text>
-          </View>
+          <WallModule
+            user={{
+              id: user.id,
+              name: user.name,
+              description: user.description,
+              followersCount: user.followersCount,
+              followingCount: user.followingCount,
+              followedArtists: user.followedArtists,
+            }}
+            selectedPostType={selectedPostType}
+            onPostTypeChange={setSelectedPostType}
+            onArtistPress={(artist) => console.log('Artist pressed:', artist.name)}
+            onFollowArtist={followArtist}
+            onUnfollowArtist={unfollowArtist}
+            isLoading={isLoading}
+            testID="profile-wall-module"
+          />
         );
 
       case 'mangas':
-        return renderMangasContent();
+        return (
+          <ComicModule
+            comics={mangaLists}
+            selectedFilter={selectedMangaFilter}
+            onFilterChange={setSelectedMangaFilter}
+            onComicPress={(comic) => console.log('Comic pressed:', comic.title)}
+            onFavoritePress={(comic) => console.log('Favorite pressed:', comic.title)}
+            onMenuPress={(comic) => console.log('Menu pressed:', comic.title)}
+            isLoading={isLoading}
+            testID="profile-comic-module"
+          />
+        );
 
       case 'tuMic':
         return (
@@ -93,58 +111,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
       default:
         return null;
     }
-  };
-
-  // Renderizar contenido de la sección Mangas
-  const renderMangasContent = () => {
-    const currentList = mangaLists[selectedMangaFilter];
-
-    return (
-      <View style={styles.mangasSection}>
-        {/* Filtros de manga usando SelectionBar */}
-        <View style={styles.mangaFiltersContainer}>
-          <SelectionBar
-            options={mangaFilterOptions}
-            selectedId={selectedMangaFilter}
-            onSelectionChange={(id) => setSelectedMangaFilter(id as MangaFilter)}
-            testID="manga-filters-selection-bar"
-          />
-        </View>
-
-        {/* Grid de mangas */}
-        {currentList.length > 0 ? (
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.mangaGrid}>
-              {currentList.map((manga) => (
-                <View key={manga.id} style={styles.mangaCardWrapper}>
-                  <View style={styles.mangaCard}>
-                    <Image
-                      source={{ uri: manga.coverImage }}
-                      style={styles.mangaCover}
-                      onError={() => {}}
-                    />
-                    <View style={styles.mangaInfo}>
-                      <Text style={styles.mangaTitle} numberOfLines={2}>
-                        {manga.title}
-                      </Text>
-                      <Text style={styles.mangaAuthor} numberOfLines={1}>
-                        {manga.author.name}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              ))}
-            </View>
-          </ScrollView>
-        ) : (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyStateText}>
-              No hay mangas en esta lista
-            </Text>
-          </View>
-        )}
-      </View>
-    );
   };
 
   return (

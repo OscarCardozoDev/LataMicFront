@@ -1,6 +1,7 @@
+
 // app/features/profile/hooks.ts
 import { useState, useEffect, useCallback } from 'react';
-import { UseProfileReturn, User, MangaList, MicCustomization, MicConfiguration, ProfileTab, MicCategory, MangaFilter } from './types';
+import { UseProfileReturn, User, MangaList, MicCustomization, MicConfiguration, ProfileTab, MicCategory, MangaFilter, PostType, Artist } from './types';
 import { Comic } from '@/shared/components/ComicCard/types';
 
 export const useProfile = (): UseProfileReturn => {
@@ -11,6 +12,34 @@ export const useProfile = (): UseProfileReturn => {
     description: 'Amante de los mangas y cómics latinos. Siempre en busca de nuevas historias que me hagan vibrar.',
     coins: 1000, // Como se ve en la imagen
     isPremium: false,
+    followersCount: 1250,
+    followingCount: 189,
+    followedArtists: [
+      {
+        id: 'artist-1',
+        name: 'Artista Uno',
+        avatar: 'https://picsum.photos/100/100?random=10',
+        isFollowing: true,
+      },
+      {
+        id: 'artist-2',
+        name: 'Artista Dos',
+        avatar: 'https://picsum.photos/100/100?random=11',
+        isFollowing: true,
+      },
+      {
+        id: 'artist-3',
+        name: 'Artista Tres',
+        avatar: 'https://picsum.photos/100/100?random=12',
+        isFollowing: true,
+      },
+      {
+        id: 'artist-4',
+        name: 'Artista Cuatro',
+        avatar: 'https://picsum.photos/100/100?random=13',
+        isFollowing: true,
+      },
+    ],
   });
 
   const [mangaLists, setMangaLists] = useState<MangaList>({
@@ -37,6 +66,7 @@ export const useProfile = (): UseProfileReturn => {
   const [currentTab, setCurrentTab] = useState<ProfileTab>('muro');
   const [selectedMicCategory, setSelectedMicCategory] = useState<MicCategory>('cabello');
   const [selectedMangaFilter, setSelectedMangaFilter] = useState<MangaFilter>('reading');
+  const [selectedPostType, setSelectedPostType] = useState<PostType>('publicaciones');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -123,6 +153,28 @@ export const useProfile = (): UseProfileReturn => {
     }));
   }, []);
 
+  // Seguir artista
+  const followArtist = useCallback((artistId: string) => {
+    setUser(prev => ({
+      ...prev,
+      followedArtists: prev.followedArtists.map(artist =>
+        artist.id === artistId ? { ...artist, isFollowing: true } : artist
+      ),
+      followingCount: prev.followingCount + 1,
+    }));
+  }, []);
+
+  // Dejar de seguir artista
+  const unfollowArtist = useCallback((artistId: string) => {
+    setUser(prev => ({
+      ...prev,
+      followedArtists: prev.followedArtists.map(artist =>
+        artist.id === artistId ? { ...artist, isFollowing: false } : artist
+      ),
+      followingCount: Math.max(0, prev.followingCount - 1),
+    }));
+  }, []);
+
   // Cargar datos iniciales
   useEffect(() => {
     loadUserData();
@@ -137,16 +189,20 @@ export const useProfile = (): UseProfileReturn => {
     currentTab,
     selectedMicCategory,
     selectedMangaFilter,
+    selectedPostType,
     isLoading,
     error,
     setCurrentTab,
     setSelectedMicCategory,
     setSelectedMangaFilter,
+    setSelectedPostType,
     updateUserDescription,
     purchaseMicItem,
     applyMicCustomization,
     removeMangaFromList,
+    followArtist,
+    unfollowArtist,
     loadUserData,
     loadMicCustomizations,
   };
-};
+}
