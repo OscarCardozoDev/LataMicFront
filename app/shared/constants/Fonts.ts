@@ -110,7 +110,7 @@ export const FontFamily = {
     bodyLarge: {
       fontFamily: FontFamily.ralewayMedium,
       fontSize: FontSize.lg,
-      lineHeight: LineHeight.relaxed,
+      lineHeight: LineHeight.xs,
       fontWeight: FontWeight.regular,
     },
     bodySmall: {

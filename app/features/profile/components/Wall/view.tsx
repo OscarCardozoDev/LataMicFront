@@ -1,23 +1,10 @@
 // app/features/profile/components/WallModule/view.tsx
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SelectionBar } from '@/shared/components/SelectionBar';
 import { styles } from './styles';
-import { 
-  WallModuleState, 
-  WallModuleHandlers, 
-  PostTypeOption,
-  PostType,
-  Artist 
-} from './types';
+import { WallModuleState, WallModuleHandlers, PostTypeOption, PostType, Artist } from './types';
 import Colors from '@/shared/constants/Colors';
 
 interface WallModuleViewProps {
@@ -34,7 +21,7 @@ export const WallModuleView: React.FC<WallModuleViewProps> = ({
   testID,
 }) => {
   const { t } = useTranslation();
-  
+
   const { user, selectedPostType, isLoading } = state;
   const { handlePostTypeChange, handleArtistPress, handleFollowToggle } = handlers;
 
@@ -67,19 +54,19 @@ export const WallModuleView: React.FC<WallModuleViewProps> = ({
           return {
             icon: '📝',
             title: 'Sin publicaciones aún',
-            subtitle: 'Tus publicaciones aparecerán aquí cuando compartas contenido'
+            subtitle: 'Tus publicaciones aparecerán aquí cuando compartas contenido',
           };
         case 'compartidas':
           return {
             icon: '🔄',
             title: 'Sin contenido compartido',
-            subtitle: 'Las publicaciones que compartas de otros usuarios aparecerán aquí'
+            subtitle: 'Las publicaciones que compartas de otros usuarios aparecerán aquí',
           };
         default:
           return {
             icon: '📋',
             title: 'Sin contenido',
-            subtitle: 'No hay contenido para mostrar'
+            subtitle: 'No hay contenido para mostrar',
           };
       }
     };
@@ -89,16 +76,10 @@ export const WallModuleView: React.FC<WallModuleViewProps> = ({
     return (
       <View style={styles.postsContent}>
         <View style={styles.postsPlaceholderIcon}>
-          <Text style={styles.postsPlaceholderIconText}>
-            {placeholder.icon}
-          </Text>
+          <Text style={styles.postsPlaceholderIconText}>{placeholder.icon}</Text>
         </View>
-        <Text style={styles.postsPlaceholderTitle}>
-          {placeholder.title}
-        </Text>
-        <Text style={styles.postsPlaceholderSubtitle}>
-          {placeholder.subtitle}
-        </Text>
+        <Text style={styles.postsPlaceholderTitle}>{placeholder.title}</Text>
+        <Text style={styles.postsPlaceholderSubtitle}>{placeholder.subtitle}</Text>
       </View>
     );
   };
@@ -108,16 +89,14 @@ export const WallModuleView: React.FC<WallModuleViewProps> = ({
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={Colors.titlePink} />
-        <Text style={styles.loadingText}>
-          {t('common.loading', 'Cargando...')}
-        </Text>
+        <Text style={styles.loadingText}>{t('common.loading', 'Cargando...')}</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container} testID={testID}>
-      <ScrollView 
+      <ScrollView
         style={styles.scrollContainer}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -154,7 +133,7 @@ export const WallModuleView: React.FC<WallModuleViewProps> = ({
         {/* Sección de artistas seguidos */}
         <View style={styles.artistsSection}>
           <Text style={styles.artistsSectionTitle}>Artistas</Text>
-          
+
           {user.followedArtists.length > 0 ? (
             <ScrollView
               horizontal
@@ -163,15 +142,11 @@ export const WallModuleView: React.FC<WallModuleViewProps> = ({
               showsHorizontalScrollIndicator={false}
               testID={`${testID}-artists-scroll`}
             >
-              {user.followedArtists.map((artist, index) => 
-                renderArtistItem(artist, index)
-              )}
+              {user.followedArtists.map((artist, index) => renderArtistItem(artist, index))}
             </ScrollView>
           ) : (
             <View style={styles.emptyArtistsContainer}>
-              <Text style={styles.emptyArtistsText}>
-                No sigues a ningún artista aún
-              </Text>
+              <Text style={styles.emptyArtistsText}>No sigues a ningún artista aún</Text>
             </View>
           )}
         </View>
@@ -181,7 +156,7 @@ export const WallModuleView: React.FC<WallModuleViewProps> = ({
           <SelectionBar
             options={postTypeOptions}
             selectedId={selectedPostType}
-            onSelectionChange={(id) => handlePostTypeChange(id as PostType)}
+            onSelectionChange={id => handlePostTypeChange(id as PostType)}
             testID={`${testID}-posts-selection`}
           />
         </View>

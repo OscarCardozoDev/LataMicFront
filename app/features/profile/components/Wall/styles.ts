@@ -19,9 +19,10 @@ export const styles = StyleSheet.create({
 
   // === HEADER DEL USUARIO ===
   userHeader: {
+    minHeight: SPACING.xxxxxl,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginBottom: SPACING.lg,
     paddingHorizontal: SPACING.sm,
   },
@@ -87,13 +88,13 @@ export const styles = StyleSheet.create({
 
   // === SECCIÓN DE ARTISTAS ===
   artistsSection: {
-    marginBottom: SPACING.lg,
+    marginVertical: SPACING.xxxl,
   },
 
   artistsSectionTitle: {
     ...Typography.h3,
     color: Colors.titlePink,
-    marginBottom: SPACING.md,
+    marginBottom: SPACING.xxl,
     paddingHorizontal: SPACING.sm,
     fontWeight: '600',
   },
@@ -109,13 +110,13 @@ export const styles = StyleSheet.create({
   artistItem: {
     alignItems: 'center',
     marginRight: SPACING.md,
-    width: 80,
+    width: 125,
   },
 
   artistAvatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     backgroundColor: Colors.gray300,
     marginBottom: SPACING.xs,
     overflow: 'hidden',
@@ -128,8 +129,9 @@ export const styles = StyleSheet.create({
   },
 
   artistName: {
-    ...Typography.caption,
+    ...Typography.body,
     color: Colors.gray800,
+    marginTop: 10,
     textAlign: 'center',
     fontWeight: '500',
   },

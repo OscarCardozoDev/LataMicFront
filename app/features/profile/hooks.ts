@@ -1,4 +1,3 @@
-
 // app/features/profile/hooks.ts
 import { useState, useEffect, useCallback } from 'react';
 import { UseProfileReturn, User, MangaList, MicCustomization, MicConfiguration, ProfileTab, MicCategory, MangaFilter, PostType, Artist } from './types';
@@ -111,7 +110,7 @@ export const useProfile = (): UseProfileReturn => {
     }
   }, []);
 
-  // Cargar personalizaciones del Mic (placeholder por ahora)
+  // Cargar personalizaciones del Mic
   const loadMicCustomizations = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -119,8 +118,29 @@ export const useProfile = (): UseProfileReturn => {
       // Simular llamada a API
       await new Promise(resolve => setTimeout(resolve, 800));
       
-      // Por ahora dejamos vacío ya que el Mic será un placeholder gris
-      setMicCustomizations([]);
+      const categories: MicCategory[] = [
+        'cabello', 'ojos', 'nariz', 'boca', 'cejas', 'belloFacial', 
+        'lunares', 'ropaParteSuperior', 'ropaParteInferior', 'zapatos', 
+        'mascotas', 'fondo'
+      ];
+      
+      const mockCustomizations: MicCustomization[] = [];
+      
+      categories.forEach(category => {
+        for (let i = 1; i <= 20; i++) { // 20 items por categoría para probar scroll
+          mockCustomizations.push({
+            id: `${category}-${i}`,
+            category,
+            name: `${category.charAt(0).toUpperCase() + category.slice(1)} ${i}`,
+            imageUrl: `https://via.placeholder.com/80x80/${i % 2 === 0 ? 'FF7E9D' : '87CEEB'}/FFFFFF?text=${category.charAt(0).toUpperCase()}${i}`,
+            isPremium: Math.random() > 0.6, // 40% premium
+            price: Math.random() > 0.6 ? Math.floor(Math.random() * 100) + 20 : undefined,
+            isOwned: Math.random() > 0.3, // 70% owned
+          });
+        }
+      });
+      
+      setMicCustomizations(mockCustomizations);
       
     } catch (err) {
       setError('Error al cargar las personalizaciones');

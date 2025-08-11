@@ -10,8 +10,9 @@ import { useTranslation } from 'react-i18next';
 import { SelectionBar } from '@/shared/components/SelectionBar';
 import { ComicModule } from './components/ComicsList';
 import { WallModule } from './components/Wall';
+import { MicModule } from './components/PersonalitationMic';
 import { styles } from './styles';
-import { UseProfileReturn, ProfileTab, MangaFilter } from './types';
+import { UseProfileReturn, ProfileTab } from './types';
 import Colors from '@/shared/constants/Colors';
 
 interface ProfileViewProps {
@@ -24,16 +25,22 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
   const {
     user,
     mangaLists,
+    micCustomizations,
+    currentMicConfig,
     currentTab,
     selectedMangaFilter,
+    selectedMicCategory,
     selectedPostType,
     isLoading,
     error,
     setCurrentTab,
     setSelectedMangaFilter,
+    setSelectedMicCategory,
     setSelectedPostType,
     followArtist,
     unfollowArtist,
+    applyMicCustomization,
+    purchaseMicItem,
   } = profileData;
 
   // Opciones para el SelectionBar principal
@@ -45,7 +52,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
 
   // Renderizar contenido del tab actual
   const renderTabContent = () => {
-    if (isLoading) {
+    if (isLoading && currentTab !== 'muro') {
       return (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={Colors.fourth} />
@@ -100,16 +107,25 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
 
       case 'tuMic':
         return (
-          <View style={styles.tabContent}>
-            <Text style={styles.placeholderText}>Personalización del Mic</Text>
-            <Text style={styles.placeholderSubtext}>
-              Próximamente podrás personalizar tu avatar
-            </Text>
-          </View>
+          <MicModule
+            items={micCustomizations}
+            configuration={currentMicConfig}
+            selectedCategory={selectedMicCategory}
+            userCoins={user.coins}
+            onCategoryChange={setSelectedMicCategory}
+            onItemSelect={(item) => applyMicCustomization(item.category, item.id)}
+            onItemPurchase={purchaseMicItem}
+            isLoading={isLoading}
+            testID="profile-mic-module"
+          />
         );
 
       default:
-        return null;
+        return (
+          <View style={styles.tabContent}>
+            <Text style={styles.placeholderText}>Contenido no encontrado</Text>
+          </View>
+        );
     }
   };
 
@@ -120,7 +136,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
         
         {/* Panel izquierdo - Información del usuario */}
         <View style={styles.leftPanel}>
-          {/* SelectionBar */}
+          {/* SelectionBar principal */}
           <View style={styles.selectionBarContainer}>
             <SelectionBar
               options={tabOptions}
@@ -136,7 +152,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
           </View>
         </View>
 
-        {/* Panel derecho - Tu Mic (placeholder) */}
+        {/* Panel derecho - Tu Mic (visualización) */}
         <View style={styles.rightPanel}>
           {/* Saldo de monedas */}
           <View style={styles.coinsContainer}>
@@ -144,7 +160,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ profileData }) => {
             <View style={styles.coinIcon} />
           </View>
 
-          {/* Visualización del Mic (placeholder) */}
+          {/* Visualización del Mic */}
           <View style={styles.micVisualizationContainer}>
             <View style={styles.micAvatarContainer}>
               <Text style={styles.micPlaceholderText}>Tu Mic</Text>
