@@ -1,66 +1,91 @@
-import { StyleSheet, Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
+import {
+  BORDER_RADIUS,
+  getPagePadding,
+  SHADOWS,
+  SPACING,
+  TITLE_LOGO,
+} from '../../constants/Dimensions';
 import { Typography } from '../../constants/Fonts';
-import { SPACING, BORDER_RADIUS, SHADOWS, getPagePadding, TITLE_LOGO } from '../../constants/Dimensions';
 
 export const styles = StyleSheet.create({
-  // Actualiza estos estilos en tu styles.ts
-
-  // Container principal - sin cambios
+  // Container principal - ALTURA REDUCIDA
   container: {
     backgroundColor: Colors.thirth,
     paddingHorizontal: getPagePadding(),
-    paddingVertical: SPACING.md,
+    paddingVertical: SPACING.xs, // Reducido de SPACING.md
     borderBottomWidth: 1,
     borderBottomColor: Colors.gray200,
     ...SHADOWS.sm,
-    paddingTop: Platform.OS === 'ios' ? SPACING.xl + 20 : SPACING.md,
+    paddingTop: Platform.OS === 'ios' ? SPACING.lg : SPACING.xs, // Reducido
   },
 
-  // Contenido principal - layout simplificado
+  // Contenido principal - ALTURA REDUCIDA
   content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 50,
+    height: 44, // Reducido de 50 a 44
   },
 
-  // Botón del menú hamburguesa
+  // Botón del menú hamburguesa - TAMAÑO REDUCIDO
   menuButton: {
-    padding: SPACING.sm,
+    padding: SPACING.xs, // Reducido de SPACING.sm
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: BORDER_RADIUS.md,
-    width: 75,
-    height: 75,
+    width: 44, // Reducido de 75 a 44
+    height: 44, // Reducido de 75 a 44
   },
 
-  // Logo centrado
+  // Logo centrado - CORREGIDO PARA TABLETS
   logoContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: SPACING.md, // Agregar padding horizontal
   },
 
   logoText: {
     ...Typography.logoHeader,
     color: Colors.five,
-    alignSelf: 'flex-start',
+    alignSelf: 'center', // Cambiado de flex-start a center
     fontWeight: 'bold',
     fontSize: TITLE_LOGO,
+    textAlign: 'center', // Asegurar texto centrado
   },
 
-  // Search container - ahora a la derecha
+  // Search container - ALTURA REDUCIDA
   searchContainer: {
-    width: 600,
-    minWidth: 350,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.white,
     borderRadius: BORDER_RADIUS.full,
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-    height: 40,
+    paddingHorizontal: SPACING.sm, // Reducido de SPACING.md
+    paddingVertical: SPACING.xs, // Reducido de SPACING.sm
+    height: 36, // Reducido de 40 a 36
+    borderWidth: 1,
+    borderColor: Colors.gray200,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+    minWidth: 150,
+    maxWidth: 600,
+    width: '100%',
+  },
+
+  // Versión móvil del search - TAMAÑO REDUCIDO
+  mobileSearchContainer: {
+    width: 32, // Reducido de 36 a 32
+    height: 32, // Reducido de 36 a 32
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: BORDER_RADIUS.full,
+    padding: SPACING.xs, // Reducido de SPACING.sm
     borderWidth: 1,
     borderColor: Colors.gray200,
     shadowColor: Colors.black,
@@ -70,14 +95,13 @@ export const styles = StyleSheet.create({
     elevation: 1,
   },
 
-  // Versión móvil del search
-  mobileSearchContainer: {
-    width: 150, // Más pequeño en móvil
-    height: 36,
-    paddingHorizontal: SPACING.sm,
+  // ESTILOS PARA MODAL - NUEVOS/ACTUALIZADOS
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
   },
 
-  // Overlay del menú lateral
+  // Overlay del menú lateral - ACTUALIZADO PARA MODAL
   leftMenuOverlay: {
     position: 'absolute',
     top: 0,
@@ -85,23 +109,50 @@ export const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 998,
   },
 
-  // Container del menú lateral
+  // Container del menú lateral - SIMPLIFICADO PARA MODAL
   leftMenuContainer: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: 280, // Ancho del panel lateral
-    height: '100%', // 100vh equivalente
+    bottom: 0,
+    width: 280,
+    height: '100%',
     backgroundColor: Colors.thirth,
-    zIndex: 999,
     shadowColor: Colors.black,
-    shadowOffset: { width: 2, height: 0 },
+    shadowOffset: { width: 4, height: 0 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
     elevation: 15,
+    paddingBottom: SPACING.lg,
+    borderTopRightRadius: 16,
+    borderBottomRightRadius: 16,
+    overflow: 'hidden',
+  },
+
+  // Modal de búsqueda móvil - ACTUALIZADO
+  mobileSearchModal: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: Platform.OS === 'ios' ? 100 : 80,
+  },
+
+  mobileSearchBox: {
+    backgroundColor: Colors.white,
+    borderRadius: 20,
+    padding: 16,
+    width: '90%',
+    maxWidth: 350,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
   },
 
   // Header del menú lateral
@@ -111,7 +162,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.lg,
     paddingVertical: SPACING.lg,
-    paddingTop: Platform.OS === 'ios' ? SPACING.xl + 20 : SPACING.lg,
+    paddingTop: Platform.OS === 'ios' ? SPACING.xl + 40 : SPACING.lg + 20,
     borderBottomWidth: 1,
     borderBottomColor: Colors.gray200,
     backgroundColor: Colors.five,
@@ -135,8 +186,9 @@ export const styles = StyleSheet.create({
 
   // Contenido del menú
   menuContent: {
-    flex: 1,
+    flexGrow: 1,
     paddingTop: SPACING.md,
+    paddingBottom: SPACING.lg,
   },
 
   // Items del menú - actualizados
@@ -160,6 +212,7 @@ export const styles = StyleSheet.create({
     marginRight: SPACING.lg,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
 
   menuItemText: {
@@ -186,8 +239,6 @@ export const styles = StyleSheet.create({
     borderRadius: 25,
     marginRight: SPACING.md,
     backgroundColor: Colors.gray300,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   welcomeText: {
@@ -210,7 +261,13 @@ export const styles = StyleSheet.create({
 
   clearSearchButton: {
     padding: 0,
-    marginLeft: 0,
+    backgroundColor: Colors.gray200,
+    borderRadius: 10, // Reducido de 12 a 10
+    width: 20, // Reducido de 24 a 20
+    height: 20, // Reducido de 24 a 20
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 6, // Reducido de 8 a 6
   },
 
   searchInput: {
@@ -242,21 +299,17 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.error,
   },
 
-  // Responsive para tablet
+  // Responsive para tablet - MEJORADO
   tabletContent: {
     maxWidth: 1200,
     alignSelf: 'center',
     width: '100%',
+    paddingHorizontal: SPACING.lg, // Agregar padding en tablets
   },
 
-  '@media (min-width: 768px)': {
-    leftMenuContainer: {
-      width: 320,
-    },
-
-    searchContainer: {
-      width: 280,
-      height: 44,
-    },
+  // NUEVO: Estilo específico para contenido en tablets medianos
+  mediumTabletContent: {
+    paddingHorizontal: SPACING.xl,
+    gap: SPACING.md, // Espaciado entre elementos
   },
 });

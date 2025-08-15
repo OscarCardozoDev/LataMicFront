@@ -1,39 +1,49 @@
-import React, { useRef } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image, SafeAreaView } from 'react-native';
 import Lottie from 'lottie-react';
-import Animated from 'react-native-reanimated';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { styles } from './styles';
-import { MenuOption } from './types';
+import {
+  Dimensions,
+  Image,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Animated from 'react-native-reanimated';
 import Colors from '../../constants/Colors';
 import { useResponsive } from '../../hooks/useResponsive';
+import { styles } from './styles';
+import { MenuOption } from './types';
 
 import MenuIcon from '@/../assets/icons/Menu.json';
 
-// Iconos mejorados
+// Iconos mejorados - TAMAÑOS REDUCIDOS
 const SearchIcon = () => (
-  <View style={{ width: 20, height: 20, justifyContent: 'center', alignItems: 'center' }}>
+  <View style={{ width: 18, height: 18, justifyContent: 'center', alignItems: 'center' }}>
     <View
       style={{
-        width: 14,
-        height: 14,
+        width: 12,
+        height: 12,
         borderWidth: 2,
         borderColor: Colors.gray500,
-        borderRadius: 7,
+        borderRadius: 6,
         position: 'absolute',
-        top: 2,
-        left: 2,
+        top: 1,
+        left: 1,
       }}
     />
     <View
       style={{
-        width: 6,
+        width: 5,
         height: 2,
         backgroundColor: Colors.gray500,
         borderRadius: 1,
         position: 'absolute',
-        bottom: 2,
-        right: 2,
+        bottom: 1,
+        right: 1,
         transform: [{ rotate: '45deg' }],
       }}
     />
@@ -41,10 +51,10 @@ const SearchIcon = () => (
 );
 
 const CloseIcon = () => (
-  <View style={{ width: 16, height: 16, justifyContent: 'center', alignItems: 'center' }}>
+  <View style={{ width: 14, height: 14, justifyContent: 'center', alignItems: 'center' }}>
     <View
       style={{
-        width: 12,
+        width: 10,
         height: 2,
         backgroundColor: Colors.gray500,
         borderRadius: 1,
@@ -54,7 +64,7 @@ const CloseIcon = () => (
     />
     <View
       style={{
-        width: 12,
+        width: 10,
         height: 2,
         backgroundColor: Colors.gray500,
         borderRadius: 1,
@@ -95,10 +105,28 @@ interface HeaderViewProps {
 }
 
 export const HeaderView: React.FC<HeaderViewProps> = ({ state, handlers, animations, testID }) => {
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener('change', ({ window }) =>
+      setWindowWidth(window.width),
+    );
+    return () => subscription?.remove();
+  }, []);
+
   const { t } = useTranslation();
   const { isTablet } = useResponsive();
 
-  const { searchText, isDropdownVisible, isSearchFocused, menuOptions, user, showSearchBar, placeholder } = state;
+  const {
+    searchText,
+    isDropdownVisible,
+    isSearchFocused,
+    menuOptions,
+    user,
+    showSearchBar,
+    placeholder,
+  } = state;
 
   const {
     handleSearch,
@@ -118,7 +146,10 @@ export const HeaderView: React.FC<HeaderViewProps> = ({ state, handlers, animati
       return (
         <View key={option.id} style={styles.welcomeItem}>
           {user?.avatar ? (
-            <Image source={{ uri: user.avatar }} style={styles.welcomeAvatar} />
+            <Image
+              source={{ uri: user.avatar }}
+              style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: Colors.gray300 }}
+            />
           ) : (
             <View
               style={[styles.welcomeAvatar, { justifyContent: 'center', alignItems: 'center' }]}
@@ -160,62 +191,41 @@ export const HeaderView: React.FC<HeaderViewProps> = ({ state, handlers, animati
   };
 
   const MenuButton = ({ onPress, isMenuOpen }) => {
-  const menuAnimationRef = useRef(null);
+    const menuAnimationRef = useRef(null);
 
-  React.useEffect(() => {
-    if (isMenuOpen) {
-      menuAnimationRef.current?.play();
-    } else {
-      menuAnimationRef.current?.reset();
-    }
-  }, [isMenuOpen]);
+    React.useEffect(() => {
+      if (isMenuOpen) {
+        menuAnimationRef.current?.play();
+      } else {
+        menuAnimationRef.current?.reset();
+      }
+    }, [isMenuOpen]);
 
-  return (
-    <TouchableOpacity 
-      style={styles.menuButton} 
-      onPress={onPress}
-      activeOpacity={0.7}
-    >
-      <Lottie
-        ref={menuAnimationRef}
-        animationData={MenuIcon}
-        autoPlay={false}
-        loop={false}
-      />
-    </TouchableOpacity>
-  );
-};
-
+    return (
+      <TouchableOpacity style={styles.menuButton} onPress={onPress} activeOpacity={0.7}>
+        <Lottie ref={menuAnimationRef} animationData={MenuIcon} autoPlay={false} loop={false} />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <>
       <SafeAreaView style={{ backgroundColor: Colors.thirth }} />
       <View style={styles.container} testID={testID}>
         <View style={[styles.content, isTablet && styles.tabletContent]}>
-          
           {/* Menú Hamburguesa - Izquierda */}
-          <TouchableOpacity 
-            style={styles.menuButton} 
-            onPress={handleMenuToggle}
-            activeOpacity={0.7}
-          >
-            <MenuButton 
-              onPress={handleMenuToggle} 
-              isMenuOpen={isDropdownVisible} 
-            />
-          </TouchableOpacity>
+          <MenuButton onPress={handleMenuToggle} isMenuOpen={isDropdownVisible} />
 
           {/* Logo/Título - Centro */}
           <TouchableOpacity style={styles.logoContainer} onPress={handleLogoPress}>
             <Text style={styles.logoText}>LATAMIC</Text>
           </TouchableOpacity>
 
-          {/* Search Bar - Derecha */}
-          {showSearchBar && (
+          {/* Search Bar o solo lupa según tamaño de pantalla */}
+          {showSearchBar && windowWidth > 500 && (
             <Animated.View
               style={[
                 styles.searchContainer,
-                !isTablet && styles.mobileSearchContainer,
                 animations.searchAnimatedStyle,
                 isSearchFocused && {
                   borderWidth: 2,
@@ -226,21 +236,20 @@ export const HeaderView: React.FC<HeaderViewProps> = ({ state, handlers, animati
                   shadowOpacity: 0.1,
                   shadowRadius: 4,
                   elevation: 3,
-                }
+                },
               ]}
             >
-              <View style={{ marginRight: 12 }}>
+              <View style={{ marginRight: 8 }}>
                 <SearchIcon />
               </View>
-              
               <TextInput
                 style={[
                   styles.searchInput,
                   {
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: '400',
-                    letterSpacing: 0.3,
-                  }
+                    letterSpacing: 0.2,
+                  },
                 ]}
                 placeholder={placeholder}
                 placeholderTextColor={Colors.gray400}
@@ -253,21 +262,9 @@ export const HeaderView: React.FC<HeaderViewProps> = ({ state, handlers, animati
                 autoCorrect={false}
                 autoCapitalize="none"
               />
-              
               {searchText.length > 0 && (
-                <TouchableOpacity 
-                  style={[
-                    styles.clearSearchButton,
-                    {
-                      backgroundColor: Colors.gray200,
-                      borderRadius: 12,
-                      width: 24,
-                      height: 24,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      marginLeft: 8,
-                    }
-                  ]} 
+                <TouchableOpacity
+                  style={styles.clearSearchButton}
                   onPress={handleClearSearch}
                   activeOpacity={0.6}
                 >
@@ -276,47 +273,99 @@ export const HeaderView: React.FC<HeaderViewProps> = ({ state, handlers, animati
               )}
             </Animated.View>
           )}
+
+          {/* Solo lupa en pantallas pequeñas */}
+          {showSearchBar && windowWidth <= 500 && (
+            <TouchableOpacity
+              style={styles.mobileSearchContainer}
+              onPress={() => setShowMobileSearch(true)}
+            >
+              <SearchIcon />
+            </TouchableOpacity>
+          )}
         </View>
 
-        {/* Menú Lateral Izquierdo - Fuera del header */}
-        {isDropdownVisible && (
-          <>
-            {/* Overlay para cerrar el menú */}
-            <TouchableOpacity
-              style={styles.leftMenuOverlay}
-              onPress={handleDropdownClose}
-              activeOpacity={1}
-            />
-            
-            {/* Panel del menú lateral */}
-            <Animated.View style={[styles.leftMenuContainer, animations.dropdownAnimatedStyle]}>
-              
-              {/* Header del menú */}
-              <View style={styles.menuHeader}>
-                <Text style={styles.menuHeaderTitle}>LATAMIC</Text>
-                <TouchableOpacity 
-                  style={styles.menuCloseButton} 
-                  onPress={handleDropdownClose}
-                  activeOpacity={0.7}
-                >
-                  <CloseIcon />
-                </TouchableOpacity>
-              </View>
-
-              {/* Items del menú */}
-              <View style={styles.menuContent}>
-                {menuOptions.map((option, index) => (
-                  <React.Fragment key={option.id}>
-                    {renderMenuItem(option, index)}
-                    {index === 0 && <View style={styles.menuSeparator} />}
-                    {index === menuOptions.length - 2 && <View style={styles.menuSeparator} />}
-                  </React.Fragment>
-                ))}
-              </View>
-            </Animated.View>
-          </>
-        )}
+        {/* MODAL DE BÚSQUEDA MÓVIL */}
+        <Modal
+          transparent={true}
+          visible={showMobileSearch}
+          animationType="fade"
+          onRequestClose={() => setShowMobileSearch(false)}
+        >
+          <View style={styles.mobileSearchModal}>
+            <View style={styles.mobileSearchBox}>
+              <SearchIcon />
+              <TextInput
+                style={{ flex: 1, marginLeft: 12, fontSize: 16, color: Colors.gray800 }}
+                placeholder={placeholder}
+                placeholderTextColor={Colors.gray400}
+                value={searchText}
+                onChangeText={handleSearch}
+                autoFocus
+                returnKeyType="search"
+                onSubmitEditing={() => {
+                  handleSearchSubmit();
+                  setShowMobileSearch(false);
+                }}
+                autoCorrect={false}
+                autoCapitalize="none"
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  setShowMobileSearch(false);
+                  handleClearSearch();
+                }}
+                style={{ marginLeft: 8 }}
+              >
+                <CloseIcon />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
+
+      {/* MODAL DEL MENÚ LATERAL */}
+      <Modal
+        transparent={true}
+        visible={isDropdownVisible}
+        animationType="none" // Usamos animaciones personalizadas
+        onRequestClose={handleDropdownClose}
+      >
+        <View style={styles.modalContainer}>
+          {/* Overlay para cerrar el menú */}
+          <TouchableOpacity
+            style={styles.leftMenuOverlay}
+            onPress={handleDropdownClose}
+            activeOpacity={1}
+          />
+
+          {/* Panel del menú lateral */}
+          <Animated.View style={[styles.leftMenuContainer, animations.dropdownAnimatedStyle]}>
+            {/* Header del menú */}
+            <View style={styles.menuHeader}>
+              <Text style={styles.menuHeaderTitle}>LATAMIC</Text>
+              <TouchableOpacity
+                style={styles.menuCloseButton}
+                onPress={handleDropdownClose}
+                activeOpacity={0.7}
+              >
+                <CloseIcon />
+              </TouchableOpacity>
+            </View>
+
+            {/* Items del menú con scroll */}
+            <ScrollView style={styles.menuContent}>
+              {menuOptions.map((option, index) => (
+                <React.Fragment key={option.id}>
+                  {renderMenuItem(option, index)}
+                  {index === 0 && <View style={styles.menuSeparator} />}
+                  {index === menuOptions.length - 2 && <View style={styles.menuSeparator} />}
+                </React.Fragment>
+              ))}
+            </ScrollView>
+          </Animated.View>
+        </View>
+      </Modal>
     </>
   );
 };
